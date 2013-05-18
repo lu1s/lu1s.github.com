@@ -1,11 +1,213 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<title>lu1s</title>
-		<meta name="description" content="lu1s's github page">
-	</head>
-	<body>
-		<h1>Hi!</h1>
-	</body>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title>Luis Pulido</title>
+	<link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://www.luispulido.com/assets/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+			width:100%;
+			height:100%;
+			font-family: 'ABeeZee', sans-serif;
+			color:#fff;
+			background:#333;
+		}
+		.cont{
+			width:100%;
+			margin:0 auto;
+		}
+		.cont h1{
+			text-align:center;
+		}
+		.box{
+			float:left;
+			margin:0;
+			padding:0;
+			border:none;
+		}
+		.info{
+			position:fixed;
+			left:1%;
+			top:35%;
+			width:97%;
+			right:10px;
+			z-index:500;
+			background:white;
+			opacity:0.92;
+			padding:20px 0;
+			border-top-left-radius:25px;
+			border-bottom-right-radius:25px;
+			line-height:8px;
+			border:solid 5px #333;
+			text-align:center;
+		}
+		.info h1{
+			color:#DE3556;
+			font-weight:800;
+			font-size:2em;
+			opacity:1;
+		}
+		.info h2{
+			color:#515151;
+			font-weight:600;
+			font-size:1.2em;
+			opacity:1;
+		}
+		.info p{
+			color:#515151;
+			font-weight:300;
+			font-size:0.855em;
+			opacity:1;
+		}
+		@media only screen and (min-width:579px){
+			.info{
+				width:80%;
+				left:10%;
+				padding:20px 10px;
+				text-align:right;
+			}
+			.info h1{
+				font-size:2.85em;
+			}
+			.info h2{
+				font-size:1.55em;
+			}
+			.info p{
+				font-size:1.2em;
+			}
+		}
+		@media only screen and (min-width:1100px){
+			.info{
+				width:40%;
+				left:30%;
+			}
+		}
+		.info p a{
+			color:#DE3556;
+			text-decoration: none;
+		}
+		.info p a:hover{
+			color:#F91845;
+		}
+	</style>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-41021369-1', 'luispulido.com');
+	  ga('send', 'pageview');
+	</script>
+</head>
+<body>
+	<div class="info">
+		<h1>Luis Pulido</h1>
+		<h2>front-end developer/consultant</h2>
+		<p>
+			   <a href="https://plus.google.com/100345313252290716953/posts">G+</a>
+			 | <a href="http://twitter.com/pulidoman">Twitter</a>
+			 | <a href="https://github.com/lu1s">GitHub</a>
+			 | <a href="http://www.facebook.com/pulido">Facebook</a>
+		</p>
+	</div>
+	<div class="cont"></div>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.luispulido.com/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script type="text/javascript">
+		function generateRandomColor(){
+			var c = '#', hex = '0123456789ABCDEF'.split('');
+			for(var i = 0; i < 6; i++){
+				c += hex[Math.floor(Math.random() * hex.length)];
+			}
+			return c;
+		}
+		function invertColor(y) {
+		    return ("#" + (("000000" + ((0xFFFFFF ^ (parseInt((y.substring(1)), 16))).toString(16))).slice(-6)));
+		}
+		function changeBackground(color){
+			$('body').animate({'backgroundColor':color},800);
+		}
+		function changeForeground(color){
+			$('.cont > h1').animate({'color':color},800)
+		}
+		function thread_generateRandomColor(){
+			window.setTimeout(function(){
+				var color = generateRandomColor();
+				changeBackground(color);
+				changeForeground(invertColor(color));
+				thread_generateRandomColor();
+			},1000);
+		}
+		function thread_fillWithDivs(){
+			window.setTimeout(function(){
+				fillWithDivs();
+				thread_fillWithDivs();
+			},4000);
+		}
+		function fillWithDivs(){
+			$('.cont').fadeOut(function(){
+				var cont = $(this);
+				cont.html('');
+				var width = $(window).width();
+				var height = $(window).height();
+				var x = width / 20;
+				var rows = Math.floor(height / x);
+				var amount = 20 * rows;
+				// var timeout = 10;
+				for(var i = 0; i < amount; i++){
+					// window.setTimeout(function(){
+						cont.append(function(){
+							var a = x.toString() + 'px'
+							return $('<div/>').addClass('box').css({
+								width: a,
+								height: a,
+								background: (Math.floor(Math.random() * 2)) == 1 ? generateRandomColor() : 'transparent'
+							}).on('mouseenter touchstart',function(){
+								$(this).animate({
+									'backgroundColor':invertColor(rgb2hex($(this).css('backgroundColor')))
+								},100);
+							});
+						}());
+					// }, timeout);
+					// timeout += 10;
+				}
+			}).fadeIn();
+		}
+
+		var to, timeout, resizeStarted, delta = 300;
+
+		function resizeEnd(){
+			if((new Date()) - resizeStarted < delta){
+				setTimeout(resizeEnd, delta);
+			}
+			else{
+				fillWithDivs();
+			}
+		}
+
+		var hexDigits = new Array("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+
+		//Function to convert hex format to a rgb color
+		function rgb2hex(rgb) {
+ 			rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ 			return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+		}
+
+		function hex(x) {
+			return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+		 }
+
+		$(document).ready(function(){
+			fillWithDivs();
+			//thread_generateRandomColor();
+			thread_fillWithDivs();
+		});
+
+	</script>
+</body>
 </html>
